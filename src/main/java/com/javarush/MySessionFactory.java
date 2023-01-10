@@ -9,6 +9,8 @@ import org.hibernate.cfg.Environment;
 
 import java.util.Properties;
 
+import static java.util.Objects.nonNull;
+
 public class MySessionFactory {
     private static MySessionFactory instance;
     private final SessionFactory sessionFactory;
@@ -39,5 +41,10 @@ public class MySessionFactory {
         return instance.sessionFactory;
     }
 
+    public static void shutdownSessionFactory() {
+        if (nonNull(instance.sessionFactory)) {
+            instance.sessionFactory.close();
+        }
+    }
 
 }
